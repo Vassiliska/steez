@@ -7,7 +7,7 @@ import { ShoppingCart, ChevronDown, Flame } from "lucide-react";
 const Home = () => {
   const [cartItems, setCartItems] = useState([]);
   const [showCart, setShowCart] = useState(false);
-  const [activeSection, setActiveSection] = useState("home");
+  const [activeSection, setActiveSection] = useState("Αρχική Σελίδα");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeBrand, setActiveBrand] = useState(null);
 
@@ -36,7 +36,7 @@ const Home = () => {
   const brandProducts = Array.from({ length: 10 }, (_, i) => i + 1);
 
   const filteredProducts = products
-    .slice(0, activeSection === "home" ? 10 : 20)
+    .slice(0, activeSection === "Αρχική Σελίδα" ? 10 : 20)
     .filter((item) => `Product ${item}`.toLowerCase().includes(searchTerm.toLowerCase()));
 
     const handleQtyChange = (index, delta, event) => {
@@ -61,7 +61,7 @@ const Home = () => {
   if (activeSection === "checkout") {
     return (
       <div className="min-h-screen bg-black text-white px-4 py-10 md:px-20">
-        <button onClick={() => setActiveSection("home")} className="inline-flex items-center gap-2 text-sm px-4 py-2 border border-white/30 rounded-full hover:bg-white hover:text-black transition mb-8"><span className="text-lg">←</span> Back to Home</button>
+        <button onClick={() => setActiveSection("Αρχική Σελίδα")} className="inline-flex items-center gap-2 text-sm px-4 py-2 border border-white/30 rounded-full hover:bg-white hover:text-black transition mb-8"><span className="text-lg">←</span> Πίσω στην Αρχική Σελίδα</button>
         <h1 className="text-4xl font-bold mb-8 text-center uppercase">Checkout</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
@@ -106,7 +106,7 @@ const Home = () => {
     const method = document.getElementById("paymentMethod").value;
     alert(`✅ Paid successfully using ${method}! Thank you for your purchase.`);
     setCartItems([]);
-    setActiveSection("home");
+    setActiveSection("Αρχική Σελίδα");
   }}
     className="w-full bg-white text-black py-3 rounded font-semibold hover:bg-gray-200 transition"
   >
@@ -126,7 +126,7 @@ const Home = () => {
       <header className="flex flex-col md:flex-row items-center justify-between px-6 py-4 bg-black border-b border-zinc-800 relative md:gap-0 gap-4">
         <img src="src/steez.png" alt="STEEZ.GR Logo" className="h-20 w-auto scale-[3] origin-left" />
         <nav className="w-full flex justify-center md:justify-center md:absolute md:left-1/2 md:transform md:-translate-x-1/2 mt-4 md:mt-0 gap-4 text-sm md:text-base font-medium uppercase">
-          {["home", "shop", "about", "contact"].map((key) => (
+          {["Αρχική Σελίδα", "Προϊόντα", "Πληροφορίες", "Επικοινωνία","Αναζήτηση Δέματος"].map((key) => (
             <button
               key={key}
               onClick={() => {
@@ -187,7 +187,7 @@ const Home = () => {
         </header>
 
 {/* Simple categories bar */}
-{activeSection === "shop" && (
+{activeSection === "Προϊόντα" && (
   <div className="bg-zinc-900 py-3 border-b border-zinc-800">
     <div className="container mx-auto px-4">
       <div className="flex flex-wrap">
@@ -235,12 +235,12 @@ const Home = () => {
 )}
 
 {/* Then continue with your existing shop section */}
-{(activeSection === "shop" || activeSection === "home") && (
+{(activeSection === "Προϊόντα" || activeSection === "Αρχική Σελίδα") && (
   <section className="pt-16 pb-20 px-4 md:px-16">
     {/* Rest of your shop section */}
 
     <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 uppercase tracking-widest flex items-center justify-center gap-2">
-      {activeBrand ? `${activeBrand} Products` : <> <Flame className="text-red-500" /> Featured Drops</>}
+      {activeBrand ? `${activeBrand}` : <> <Flame className="text-red-500" /> Featured Drops</>}
     </h2>
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
       {/* Rest of your code remains the same */}
@@ -274,10 +274,10 @@ const Home = () => {
     </div>
   </section>
 )}
-{(activeSection === "about" || activeSection === "home") && (
+{(activeSection === "Πληροφορίες" || activeSection === "Αρχική Σελίδα") && (
   <section className="py-20 px-4 md:px-16 bg-zinc-950 text-center">
     <div className="max-w-3xl mx-auto">
-      <h2 className="text-4xl md:text-5xl font-bold uppercase">About STEEZ.GR</h2>
+      <h2 className="text-4xl md:text-5xl font-bold uppercase text-white">STEEZ.GR</h2>
       <p className="text-gray-400 mt-6 text-lg">
         At STEEZ.GR, we believe in fearless fashion. Our mission is to redefine luxury streetwear by blending bold aesthetics with top-tier materials. From exclusive drops to timeless essentials, every piece is designed for those who lead, not follow.
       </p>
@@ -286,23 +286,51 @@ const Home = () => {
   </section>
 )}
 
-{(activeSection === "contact" || activeSection === "home") && (
+{(activeSection === "Επικοινωνία" || activeSection === "Αρχική Σελίδα") && (
   <section className="py-20 px-4 md:px-16 text-center bg-black border-t border-zinc-800">
-    <h3 className="text-2xl font-semibold">Visit Us</h3>
+    <h3 className="text-2xl font-semibold text-white">Visit Us</h3>
     <p className="text-gray-400 mt-2">STEEZ.GR Flagship Store</p>
     <p className="text-gray-400">123 Fashion Ave, Athens, Greece</p>
     <p className="text-gray-400">Phone: +30 210 000 0000</p>
     <p className="text-gray-400">Email: support@steez.gr</p>
-    <h3 className="text-3xl md:text-4xl font-semibold mt-10">Join the Movement</h3>
+    <h3 className="text-3xl md:text-4xl font-semibold mt-10 text-white">Join the Movement</h3>
     <p className="text-gray-400 mt-3 text-lg">Be the first to access new drops, exclusives & streetwear insights.</p>
     <div className="mt-6 flex flex-col md:flex-row justify-center gap-4 max-w-lg mx-auto">
-      <input type="email" placeholder="Enter your email" className="p-4 rounded-xl w-full text-black focus:outline-none" />
+      <input 
+        type="email" 
+        placeholder="Enter your email" 
+        className="p-4 rounded-xl w-full text-black focus:outline-none" 
+      />
       <Button className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-lg">Sign Up</Button>
     </div>
   </section>
 )}
+
+{/* Αναζήτηση Δέματος Section */}
+{(activeSection === "Αναζήτηση Δέματος" || activeSection === "Αρχική Σελίδα") && (
+  <section className="py-20 px-4 md:px-16 bg-gray-800 text-center">
+    <div className="max-w-3xl mx-auto">
+      <h2 className="text-4xl md:text-5xl font-bold uppercase text-white">Αναζήτηση Δέματος</h2>
+      <p className="text-gray-400 mt-6 text-lg">
+        Αναζητήστε το δέμα σας από την υπηρεσία ACS Courier με τον αριθμό αποστολής.
+      </p>
+      {/* Κουμπί Αναζήτησης χωρίς το μπλε φόντο */}
+      <a 
+        href="https://www.acscourier.net/el/myacs/anafores-apostolwn/anazitisi-apostolwn/" 
+        target="_blank" 
+        rel="noopener noreferrer"
+        className="mt-8 inline-block px-6 py-3 text-lg bg-white text-black rounded-lg hover:bg-gray-200 transition"
+      >
+        Αναζήτηση Δέματος
+      </a>
+    </div>
+  </section>
+)}
+
     </div>
   );
+  
 };
+
 
 export default Home;
