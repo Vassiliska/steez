@@ -252,7 +252,7 @@ const Home = () => {
           onClick={() => window.location.reload()}
         />
         <nav className="w-full flex justify-center md:justify-center md:absolute md:left-1/2 md:transform md:-translate-x-1/2 mt-4 md:mt-0 gap-4 text-sm md:text-base font-medium uppercase">
-          {["Αρχική Σελίδα", "Προϊόντα", "Πληροφορίες", "Επικοινωνία", "Αναζήτηση Δέματος"].map(
+          {["Αρχική Σελίδα", "Προϊόντα", "Επικοινωνία", "Αναζήτηση Δέματος"].map(
             (key) => (
               <button
                 key={key}
@@ -467,21 +467,6 @@ const Home = () => {
         </div>
       )}
 
-      {/* Information Section */}
-      {(activeSection === "Πληροφορίες" || activeSection === "Αρχική Σελίδα") && (
-        <section className="py-20 px-4 md:px-16 bg-zinc-950 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold uppercase text-white">STEEZ.GR</h2>
-            <p className="text-gray-400 mt-6 text-lg">
-              At STEEZ.GR, we believe in fearless fashion. Our mission is to redefine luxury streetwear by blending bold
-              aesthetics with top-tier materials. From exclusive drops to timeless essentials, every piece is designed for
-              those who lead, not follow.
-            </p>
-            <Button className="mt-8 text-black bg-white hover:bg-gray-200 px-6 py-3 text-lg">Read Our Story</Button>
-          </div>
-        </section>
-      )}
-
       {/* Contact Section */}
       {(activeSection === "Επικοινωνία" || activeSection === "Αρχική Σελίδα") && (
         <section className="py-20 px-4 md:px-16 text-center bg-black border-t border-zinc-800">
@@ -504,7 +489,7 @@ const Home = () => {
       )}
 
       {/* Αναζήτηση Δέματος Section */}
-      {(activeSection === "Αναζήτηση Δέματος" || activeSection === "Αρχική Σελίδα") && (
+      {(activeSection === "Αναζήτηση Δέματος") && (
         <section className="py-20 px-4 md:px-16 bg-black text-center">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-4xl md:text-5xl font-bold uppercase text-white">Αναζήτηση Δέματος</h2>
