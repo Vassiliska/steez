@@ -9,21 +9,19 @@ const Home = () => {
   const [activeSection, setActiveSection] = useState("Αρχική Σελίδα");
   const [searchTerm, setSearchTerm] = useState("");
   const [activeBrand, setActiveBrand] = useState(null);
-
-  // State για το modal προϊόντος
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   const categories = [
-    "New Arrivals",
-    "Men",
-    "Women",
-    "Sneakers",
-    "Perfume",
-    "Bags",
-    "Watches",
-    "Jewelry",
-    "Sunglasses",
-    "Electronics",
+    "Νέες Άφιξεις",
+    "Άνδρικά",
+    "Γυναίκεία",
+    "Παπούτσια",
+    "Αρώματα",
+    "Τσάντες",
+    "Ρολόγια",
+    "Κοσμήματα",
+    "Γυαλιά Ηλίου",
+    "Ηλεκτρονικά",
   ];
 
   const brands = [
@@ -53,12 +51,28 @@ const Home = () => {
   ];
 
   const [showBrands, setShowBrands] = useState(false);
-  const products = Array.from({ length: 20 }, (_, i) => i + 1);
-  const brandProducts = Array.from({ length: 10 }, (_, i) => i + 1);
 
-  const filteredProducts = products
-    .slice(0, activeSection === "Αρχική Σελίδα" ? 10 : 20)
-    .filter((item) => `Product ${item}`.toLowerCase().includes(searchTerm.toLowerCase()));
+  // Updated product list with categories
+  const products = [
+    { id: 1, name: "Φούστα Εκατό", price: 50, category: "Γυναίκεία", brand: "CHANEL", image: "https://via.placeholder.com/400x500?text=Φούστα+Εκατό" },
+    { id: 2, name: "Παπούτσι Αθλητικό", price: 50, category: "Άνδρικά", brand: "Nike", image: "https://via.placeholder.com/400x500?text=Παπούτσι+Αθλητικό" },
+    { id: 3, name: "Τσάντα Δέρματος", price: 50, category: "Τσάντες", brand: "GUCCI", image: "https://via.placeholder.com/400x500?text=Τσάντα+Δέρματος" },
+    { id: 4, name: "Ρολόι Χειρός", price: 100, category: "Ρολόγια", brand: "ROLEX", image: "https://via.placeholder.com/400x500?text=Ρολόι+Χειρός" },
+    { id: 5, name: "Κοσμήματα Χρυσά", price: 30, category: "Κοσμήματα", brand: "HERMÈS", image: "https://via.placeholder.com/400x500?text=Κοσμήματα+Χρυσά" },
+    { id: 6, name: "Γυαλιά Ηλίου", price: 100, category: "Γυαλιά Ηλίου", brand: "Ray-Ban", image: "https://via.placeholder.com/400x500?text=Γυαλιά+Ηλίου" },
+    { id: 7, name: "Αρώματα Πολυτελή", price: 100, category: "Αρώματα", brand: "DIOR", image: "https://via.placeholder.com/400x500?text=Αρώματα+Πολυτελή" },
+    { id: 8, name: "Smartphone Pro Max", price: 500, category: "Ηλεκτρονικά", brand: "Apple", image: "https://via.placeholder.com/400x500?text=Smartphone+Pro+Max" },
+    { id: 9, name: "Φόρεμα Βραδινό", price: 100, category: "Γυναίκεία", brand: "Versace", image: "https://via.placeholder.com/400x500?text=Φόρεμα+Βραδινό" },
+    { id: 10, name: "Μπουφάν Εποχής", price: 100, category: "Άνδρικά", brand: "MONCLER", image: "https://via.placeholder.com/400x500?text=Μπουφάν+Εποχής" },
+  ];
+
+  // Filter products by category or search term
+  const filteredProducts = products.filter((product) => {
+    if (activeBrand) {
+      return product.brand === activeBrand;
+    }
+    return product.category === searchTerm || product.name.toLowerCase().includes(searchTerm.toLowerCase());
+  });
 
   const handleQtyChange = (index, delta, event) => {
     if (event) {
@@ -86,82 +100,77 @@ const Home = () => {
         >
           <span className="text-lg">←</span> Πίσω στην Αρχική Σελίδα
         </button>
-        <h1 className="text-4xl font-bold mb-8 text-center uppercase">Checkout</h1>
+        <h1 className="text-4xl font-bold mb-8 text-center uppercase">Ολοκλήρωση Παραγγελίας</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Billing Details</h2>
+            <h2 className="text-2xl font-semibold mb-4">Στοιχεία Πληρωμής</h2>
             <form className="space-y-4">
               <input
                 type="text"
-                placeholder="Full Name"
+                placeholder="Ονοματεπώνυμο"
                 className="w-full p-3 rounded bg-zinc-800 text-white focus:outline-none"
               />
               <input
                 type="email"
-                placeholder="Email Address"
+                placeholder="Διεύθυνση Email"
                 className="w-full p-3 rounded bg-zinc-800 text-white focus:outline-none"
               />
               <input
                 type="text"
-                placeholder="Address"
+                placeholder="Διεύθυνση"
                 className="w-full p-3 rounded bg-zinc-800 text-white focus:outline-none"
               />
               <input
                 type="text"
-                placeholder="City"
+                placeholder="Πόλη"
                 className="w-full p-3 rounded bg-zinc-800 text-white focus:outline-none"
               />
               <input
                 type="text"
-                placeholder="Postal Code"
+                placeholder="Ταχυδρομικός Κώδικας"
                 className="w-full p-3 rounded bg-zinc-800 text-white focus:outline-none"
               />
               <input
                 type="text"
-                placeholder="Country"
+                placeholder="Χώρα"
                 className="w-full p-3 rounded bg-zinc-800 text-white focus:outline-none"
               />
             </form>
           </div>
           <div>
-            <h2 className="text-2xl font-semibold mb-4">Order Summary</h2>
+            <h2 className="text-2xl font-semibold mb-4">Περίληψη Παραγγελίας</h2>
             <div className="bg-zinc-900 p-6 rounded-xl shadow-md">
               <div className="flex justify-between border-b border-zinc-700 pb-2 mb-4">
-                <span>Subtotal</span>
-                <span>${cartItems.reduce((acc, item) => acc + item.qty * 199, 0)}</span>
+                <span>Υποσύνολο</span>
+                <span>{cartItems.reduce((acc, item) => acc + item.qty * 199, 0)}€</span>
               </div>
               <div className="flex justify-between border-b border-zinc-700 pb-2 mb-4">
-                <span>Shipping</span>
-                <span>$25.00</span>
+                <span>Μεταφορικά</span>
+                <span>5€</span>
               </div>
               <div className="flex justify-between text-lg font-bold">
-                <span>Total</span>
-                <span>${cartItems.reduce((acc, item) => acc + item.qty * 199, 0) + 25}</span>
+                <span>Σύνολο</span>
+                <span>{cartItems.reduce((acc, item) => acc + item.qty * 199, 0) + 5}€</span>
               </div>
               <div className="mt-6">
-                <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+                <h3 className="text-lg font-semibold mb-2">Τρόπος Πληρωμής</h3>
                 <select
                   id="paymentMethod"
                   className="w-full p-3 mb-4 rounded bg-zinc-800 text-white focus:outline-none"
                 >
-                  <option>Credit Card</option>
-                  <option>Debit Card</option>
+                  <option>Αντικαταβολή</option>
                   <option>PayPal</option>
-                  <option>Apple Pay</option>
-                  <option>Google Pay</option>
-                  <option>Bank Transfer</option>
-                  <option>Cash on Delivery</option>
                 </select>
                 <button
                   onClick={() => {
                     const method = document.getElementById("paymentMethod").value;
-                    alert(`✅ Paid successfully using ${method}! Thank you for your purchase.`);
+                    alert(`✅ Πληρωμή ολοκληρώθηκε επιτυχώς με ${method}! Ευχαριστούμε για την αγορά.`);
                     setCartItems([]);
                     setActiveSection("Αρχική Σελίδα");
                   }}
                   className="w-full bg-white text-black py-3 rounded font-semibold hover:bg-gray-200 transition"
                 >
-                  Confirm & Pay
+                  Επιβεβαίωση & Πληρωμή
                 </button>
               </div>
             </div>
@@ -171,7 +180,6 @@ const Home = () => {
     );
   }
 
-  // Dedicated Cart Page
   if (activeSection === "Καλάθι Αγορών") {
     return (
       <div className="min-h-screen bg-black text-white px-4 py-10 md:px-20">
@@ -179,7 +187,7 @@ const Home = () => {
           onClick={() => setActiveSection("Αρχική Σελίδα")}
           className="inline-flex items-center gap-2 text-sm px-4 py-2 border border-white/30 rounded-full hover:bg-white hover:text-black transition mb-8"
         >
-          <span className="text-lg">←</span> Back to Home
+          <span className="text-lg">←</span> Πίσω στην Αρχική Σελίδα
         </button>
         <h1 className="text-4xl font-bold mb-8 text-center uppercase">Καλάθι Αγορών</h1>
         {cartItems.length === 0 ? (
@@ -189,18 +197,15 @@ const Home = () => {
             <ul className="space-y-4">
               {cartItems.map((item, index) => (
                 <li key={index} className="flex gap-4 items-center border-b border-gray-700 pb-4">
-                  {/* Product Image */}
                   <img
                     src={`https://via.placeholder.com/80x80?text=${encodeURIComponent(item.name)}`}
                     alt={item.name}
                     className="w-16 h-16 object-cover rounded-md"
                   />
-                  {/* Product Details */}
                   <div className="flex-1">
                     <p className="font-medium">{item.name}</p>
-                    <p className="text-sm text-gray-500">Qty: {item.qty}</p>
+                    <p className="text-sm text-gray-500">Ποσότητα: {item.qty}</p>
                   </div>
-                  {/* Quantity Controls */}
                   <div className="flex flex-col items-center gap-2">
                     <button
                       onClick={(e) => handleQtyChange(index, -1, e)}
@@ -226,13 +231,13 @@ const Home = () => {
             </ul>
             <div className="mt-6">
               <p className="font-bold text-lg">
-                Total: ${cartItems.reduce((acc, item) => acc + item.qty * 199, 0)}
+                Σύνολο: {cartItems.reduce((acc, item) => acc + item.qty * 199, 0)}€
               </p>
               <button
                 onClick={() => setActiveSection("checkout")}
                 className="mt-4 w-full bg-white text-black py-2 rounded hover:bg-gray-200 transition font-medium"
               >
-                Proceed to Checkout
+                Προχωρήστε στην Αγορά
               </button>
             </div>
           </div>
@@ -243,7 +248,7 @@ const Home = () => {
 
   return (
     <div className="bg-black text-white min-h-screen font-sans scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-zinc-900 overflow-y-scroll">
-      {/* Header with Logo & Navigation */}
+      {/* Header */}
       <header className="flex flex-col md:flex-row items-center justify-between px-6 py-4 bg-black border-b border-zinc-800 relative md:gap-0 gap-4">
         <img
           src="src/steez.png"
@@ -287,7 +292,7 @@ const Home = () => {
                     <li key={index} className="flex justify-between items-center border-b border-gray-200 pb-2">
                       <div>
                         <p className="font-medium">{item.name}</p>
-                        <p className="text-sm">Qty: {item.qty}</p>
+                        <p className="text-sm">Ποσότητα: {item.qty}</p>
                       </div>
                       <div className="flex items-center gap-2">
                         <button
@@ -315,9 +320,9 @@ const Home = () => {
               )}
               {cartItems.length > 0 && (
                 <div className="mt-4">
-                  <p className="font-bold">Total: ${cartItems.reduce((acc, item) => acc + item.qty * 199, 0)}</p>
+                  <p className="font-bold">Σύνολο: {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0)}€</p>
                   <button
-                    onClick={() => setActiveSection("Καλάθι Αγορών")} // Navigate to Cart page
+                    onClick={() => setActiveSection("Καλάθι Αγορών")}
                     className="mt-2 w-full bg-black text-white py-2 rounded hover:bg-zinc-800 transition font-medium"
                   >
                     Προβολή Καλαθιού
@@ -329,7 +334,7 @@ const Home = () => {
         </div>
       </header>
 
-      {/* Simple categories bar */}
+      {/* Categories Bar */}
       {activeSection === "Προϊόντα" && (
         <div className="bg-zinc-900 py-3 border-b border-zinc-800">
           <div className="container mx-auto px-4">
@@ -380,110 +385,133 @@ const Home = () => {
       {(activeSection === "Προϊόντα" || activeSection === "Αρχική Σελίδα") && (
         <section className="pt-16 pb-20 px-4 md:px-16">
           <h2 className="text-4xl md:text-5xl font-bold text-center mb-10 uppercase tracking-widest flex items-center justify-center gap-2">
-            {activeBrand ? `${activeBrand}` : <> <Flame className="text-red-500" /> Featured Drops</>}
+            {activeBrand ? `${activeBrand}` : <> <Flame className="text-red-500" />FEATURED</>}
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
-            {(activeBrand ? brandProducts : filteredProducts).map((item) => (
-              <Card
-                key={item}
-                className="bg-zinc-900 border border-zinc-700 rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
-                onClick={() =>
-                  setSelectedProduct({
-                    name: activeBrand ? `${activeBrand} Item ${item}` : `Product ${item}`,
-                    price: 199,
-                    image: `https://via.placeholder.com/400x500?text=${activeBrand ? `${activeBrand}+Item+${item}` : `Product+${item}`}`,
-                  })
-                }
-              >
-                <CardContent className="p-4">
-                  <img
-                    src={`https://via.placeholder.com/400x500?text=${activeBrand ? `${activeBrand}+Item+${item}` : `Product+${item}`}`}
-                    alt={`Item ${item}`}
-                    className="w-full rounded-xl"
-                  />
-                  <div className="mt-4">
-                    <h3 className="text-xl font-semibold text-white">
-                      {activeBrand ? `${activeBrand} Item ${item}` : `Product ${item}`}
-                    </h3>
-                    <p className="text-gray-400 mt-1">$199.00</p>
-                    <Button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCartItems((prev) => {
-                          const name = activeBrand ? `${activeBrand} Item ${item}` : `Product ${item}`;
-                          const existing = prev.find((p) => p.name === name);
-                          if (existing) {
-                            return prev.map((p) => (p.name === name ? { ...p, qty: p.qty + 1 } : p));
-                          }
-                          return [...prev, { name, qty: 1 }];
-                        });
-                      }}
-                      variant="ghost"
-                      className="mt-2 text-white flex items-center gap-2 hover:underline"
-                    >
-                      <ShoppingCart size={16} /> Add to Cart
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+  {filteredProducts.map((product) => (
+    <Card
+      key={product.id}
+      className="bg-zinc-900 border border-zinc-700 rounded-2xl overflow-hidden shadow-lg hover:scale-105 transition-transform duration-300"
+      onClick={() =>
+        setSelectedProduct({
+          name: product.name,
+          price: product.price,
+          image: product.image,
+        })
+      }
+    >
+      <CardContent className="p-4">
+        <img
+          src={product.image}
+          alt={product.name}
+          className="w-full rounded-xl"
+        />
+        <div className="mt-4">
+          <h3 className="text-xl font-semibold text-white">{product.name}</h3>
+          <p className="text-gray-400 mt-1">{product.price}€</p>
+          <Button
+  onClick={(e) => {
+    e.stopPropagation();
+    setCartItems((prev) => {
+      const existing = prev.find((p) => p.name === product.name);
+      if (existing) {
+        return prev.map((p) => (p.name === product.name ? { ...p, qty: p.qty + 1 } : p));
+      }
+      return [...prev, { name: product.name, price: product.price, qty: 1 }];
+    });
+    setShowCart(true); // Ανοίγει το καλάθι αυτόματα
+  }}
+  variant="ghost"
+  className="mt-2 text-white flex items-center gap-2 hover:underline"
+>
+  <ShoppingCart size={16} /> Προσθήκη στο Καλάθι
+</Button>
+        </div>
+      </CardContent>
+    </Card>
+  ))}
+</div>
         </section>
       )}
 
       {/* Modal for Product Details */}
-      {selectedProduct && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full">
-            <button
-              onClick={() => setSelectedProduct(null)}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
-            >
-              ×
-            </button>
-            <img src={selectedProduct.image} alt={selectedProduct.name} className="w-full h-48 object-cover rounded-md" />
-            <h3 className="text-xl font-semibold mt-4">{selectedProduct.name}</h3>
-            <p className="text-gray-500 mt-2">${selectedProduct.price}</p>
-            <p className="mt-4 text-sm">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor nisi vel nunc tincidunt, nec
-              fermentum ex aliquet.
-            </p>
-            <Button
-              onClick={() => {
-                setCartItems((prev) => {
-                  const existing = prev.find((p) => p.name === selectedProduct.name);
-                  if (existing) {
-                    return prev.map((p) => (p.name === selectedProduct.name ? { ...p, qty: p.qty + 1 } : p));
-                  }
-                  return [...prev, { name: selectedProduct.name, qty: 1 }];
-                });
-                setSelectedProduct(null);
-              }}
-              className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-zinc-800 transition font-medium"
-            >
-              Add to Cart
-            </Button>
-          </div>
-        </div>
-      )}
+{selectedProduct && (
+  <div
+    className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+    onClick={() => setSelectedProduct(null)} // Κλείσιμο με κλικ έξω από το modal
+  >
+    <div
+      className="bg-white p-6 rounded-lg max-w-md w-full relative"
+      onClick={(e) => e.stopPropagation()} // Αποτροπή κλεισίματος όταν κάνετε κλικ μέσα στο modal
+    >
+      {/* Κουμπί "Πίσω" */}
+      <button
+        onClick={() => setSelectedProduct(null)}
+        className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+      >
+        ×
+      </button>
+
+      {/* Εικόνα Προϊόντος */}
+      <img
+        src={selectedProduct.image}
+        alt={selectedProduct.name}
+        className="w-full h-48 object-cover rounded-md"
+      />
+
+      {/* Λεπτομέρειες Προϊόντος */}
+      <h3 className="text-xl font-semibold mt-4">{selectedProduct.name}</h3>
+      <p className="text-gray-500 mt-2">{selectedProduct.price}€</p>
+      <p className="mt-4 text-sm">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam auctor nisi vel nunc tincidunt, nec
+        fermentum ex aliquet.
+      </p>
+
+      {/* Κουμπί "Προσθήκη στο Καλάθι" */}
+      <Button
+  onClick={() => {
+    setCartItems((prev) => {
+      const existing = prev.find((p) => p.name === selectedProduct.name);
+      if (existing) {
+        return prev.map((p) => (p.name === selectedProduct.name ? { ...p, qty: p.qty + 1 } : p));
+      }
+      return [...prev, { name: selectedProduct.name, price: selectedProduct.price, qty: 1 }];
+    });
+    setShowCart(true); // Ανοίγει το καλάθι αυτόματα
+    setSelectedProduct(null); // Κλείνει το modal
+  }}
+  className="mt-4 w-full bg-black text-white py-2 rounded hover:bg-zinc-800 transition font-medium"
+>
+  Προσθήκη στο Καλάθι
+</Button>
+
+      {/* Κουμπί "Πίσω" (Εναλλακτικό) */}
+      <button
+        onClick={() => setSelectedProduct(null)}
+        className="mt-4 w-full bg-gray-200 text-black py-2 rounded hover:bg-gray-300 transition font-medium"
+      >
+        Πίσω
+      </button>
+    </div>
+  </div>
+)}
 
       {/* Contact Section */}
       {(activeSection === "Επικοινωνία" || activeSection === "Αρχική Σελίδα") && (
         <section className="py-20 px-4 md:px-16 text-center bg-black border-t border-zinc-800">
-          <h3 className="text-2xl font-semibold text-white">Visit Us</h3>
-          <p className="text-gray-400 mt-2">STEEZ.GR Flagship Store</p>
-          <p className="text-gray-400">123 Fashion Ave, Athens, Greece</p>
-          <p className="text-gray-400">Phone: +30 210 000 0000</p>
+          <h3 className="text-2xl font-semibold text-white">ΠΛΗΡΟΦΟΡΙΕΣ ΚΑΤΑΣΤΗΜΑΤΟΣ</h3>
+          <p className="text-gray-400">Διαδικτυακό κατάστημα με έδρα την Αττική.</p>
+          <p className="text-gray-400">Τηλέφωνο: +30 210 000 0000</p>
           <p className="text-gray-400">Email: support@steez.gr</p>
-          <h3 className="text-3xl md:text-4xl font-semibold mt-10 text-white">Join the Movement</h3>
-          <p className="text-gray-400 mt-3 text-lg">Be the first to access new drops, exclusives & streetwear insights.</p>
+          <h3 className="text-3xl md:text-4xl font-semibold mt-10 text-white">Γίνετε Μέλος</h3>
+          <p className="text-gray-400 mt-3 text-lg">Μάθετε πρώτοι για τις νέες παραλαβές. Αποκλειστικές εκπτώσεις σε μέλη.</p>
           <div className="mt-6 flex flex-col md:flex-row justify-center gap-4 max-w-lg mx-auto">
             <input
               type="email"
-              placeholder="Enter your email"
+              placeholder="Εισάγετε το email σας"
               className="p-4 rounded-xl w-full text-black focus:outline-none"
             />
-            <Button className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-lg">Sign Up</Button>
+            <Button className="bg-white text-black hover:bg-gray-200 px-6 py-3 text-lg">Εγγραφή</Button>
           </div>
         </section>
       )}
